@@ -240,3 +240,7 @@ cbd_dist = []
 for origin in list_of_coordinates:
     cbd_dist.append(geodesic(origin,(1.2830, 103.8513)).meters)
 
+df_coordinates['cbd_dist'] = cbd_dist
+df_coordinates['min_dist_mrt'] = min_dist_mrt
+
+print(df_coordinates)
