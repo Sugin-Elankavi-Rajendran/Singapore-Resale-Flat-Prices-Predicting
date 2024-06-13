@@ -248,6 +248,8 @@ print(df_coordinates)
 
 df_coordinates.to_csv('df_coordinates.csv',index=False)
 
+df_coordinates = pd.read_csv('df_coordinates.csv')
+
 df_new = df_coordinates.merge(df, on="address", how='outer')
 print(df_new)
 
