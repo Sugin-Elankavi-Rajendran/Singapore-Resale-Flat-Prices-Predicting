@@ -210,3 +210,17 @@ df_coordinates = pd.DataFrame({
 })
 
 print(len(df_coordinates))
+
+list_of_lat = df_coordinates['latitude']
+list_of_long = df_coordinates['longitude']
+mrt_lat = mrt_location['latitude']
+mrt_long = mrt_location['longitude']
+
+list_of_coordinates = []
+list_of_mrt_coordinates = []
+
+for lat, long in zip(list_of_lat, list_of_long):
+    list_of_coordinates.append((lat,long))
+for lat, long in zip(mrt_lat, mrt_long):
+    list_of_mrt_coordinates.append((lat, long))
+
