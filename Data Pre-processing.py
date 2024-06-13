@@ -197,9 +197,10 @@ for row in range(len(address_list)):
         road_name.append(data_geo_location['results'][0]['ROAD_NAME'])
         postal_code.append(data_geo_location['results'][0]['POSTAL'])
         address.append(query_address)
-        #print (str(query_address) + " ,Lat: " + data_geo_location['results'][0]['LATITUDE'] + " Long: " + data_geo_location['results'][0]['LONGITUDE'])
+        print (str(query_address) + " ,Lat: " + data_geo_location['results'][0]['LATITUDE'] + " Long: " + data_geo_location['results'][0]['LONGITUDE'])
     else:
-        #print ("No Results")
+        print ("No Results")
+
 
 df_coordinates = pd.DataFrame({
     'latitude': latitude,
@@ -244,3 +245,6 @@ df_coordinates['cbd_dist'] = cbd_dist
 df_coordinates['min_dist_mrt'] = min_dist_mrt
 
 print(df_coordinates)
+
+df_coordinates.to_csv('df_coordinates.csv',index=False)
+
