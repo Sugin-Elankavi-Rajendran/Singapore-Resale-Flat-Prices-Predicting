@@ -3,6 +3,7 @@ import pandas as pd
 import json
 import requests
 from openapi import api
+from geopy.distance import geodesic
 
 df = pd.concat([pd.read_csv(f) for f in glob.glob("./data/*.csv")], ignore_index=True)
 #print(df.head())
@@ -224,3 +225,12 @@ for lat, long in zip(list_of_lat, list_of_long):
 for lat, long in zip(mrt_lat, mrt_long):
     list_of_mrt_coordinates.append((lat, long))
 
+list_of_dist_mrt = []
+min_dist_mrt = []
+
+for origin in list_of_coordinates:
+    for destination in range(0, len(list_of_mrt_coordinates)):
+        list_of_dist_mrt.append(geodesic(origin,list_of_mrt_coordinates[destination]).meters)
+    shortest = (min(list_of_dist_mrt))
+    min_dist_mrt.append(shortest)
+    list_of_dist_mrt.clear()
