@@ -168,3 +168,6 @@ mrt_location = pd.DataFrame({
     'longitude': mrt_long
 })
 
+
+df['address'] = df['block'] + " " + df['street_name']
+print(df)
