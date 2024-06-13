@@ -11,4 +11,6 @@ df = pd.concat([pd.read_csv(f) for f in glob.glob("./data/*.csv")], ignore_index
 #print(df.isnull().sum())
 
 df = df.dropna()
-print(df.isnull().sum())
+#print(df.isnull().sum())
+
+print(df['town'].unique())
