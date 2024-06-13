@@ -2,6 +2,7 @@ import glob
 import pandas as pd
 import json
 import requests
+from openapi import api
 
 df = pd.concat([pd.read_csv(f) for f in glob.glob("./data/*.csv")], ignore_index=True)
 #print(df.head())
@@ -139,4 +140,31 @@ list_of_mrt = [
     'Woodlands North MRT Station',
     'Woodlands South MRT Station'
 ]
+
+mrt_lat = []
+mrt_long = []
+
+for i in range(0, len(list_of_mrt)):
+    query_address = list_of_mrt[i]
+    query_string = api
+    resp = requests.get(query_string)
+
+    data_mrt=json.loads(resp.content)
+
+    if data_mrt['found'] != 0:
+        mrt_lat.append(data_mrt["results"][0]["LATITUDE"])
+        mrt_long.append(data_mrt["results"][0]["LONGITUDE"])
+
+        #print (str(query_address)+",Lat: "+data_mrt['results'][0]['LATITUDE'] +" Long: "+data_mrt['results'][0]['LONGITUDE'])
+
+    else:
+        mrt_lat.append('NotFound')
+        mrt_long.append('NotFound')
+        #print ("No Results")
+
+mrt_location = pd.DataFrame({
+    'MRT': list_of_mrt,
+    'latitude': mrt_lat,
+    'longitude': mrt_long
+})
 
