@@ -251,3 +251,12 @@ df_coordinates.to_csv('df_coordinates.csv',index=False)
 df_new = df_coordinates.merge(df, on="address", how='outer')
 print(df_new)
 
+df_new['resale_price'] = df_new['resale_price'].astype('float')
+df_new['floor_area_sqm'] = df_new['floor_area_sqm'].astype('float')
+df_new['lease_commence_date'] = df_new['lease_commence_date'].astype('int64')
+df_new['lease_remain_years'] = 99 - (2023 - df_new['lease_commence_date'])
+
+df_new.dropna(inplace=True)
+
+print(df_new)
+
