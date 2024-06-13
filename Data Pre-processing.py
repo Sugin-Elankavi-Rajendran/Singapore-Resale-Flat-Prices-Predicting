@@ -170,4 +170,43 @@ mrt_location = pd.DataFrame({
 
 
 df['address'] = df['block'] + " " + df['street_name']
-print(df)
+#print(df)
+
+address_list = df['address'].unique()
+
+latitude = []
+longitude = []
+blk_no = []
+road_name = []
+postal_code = []
+address = []
+count = 0
+
+for row in range(len(address_list)):
+    query_address = address_list[row]
+    query_string= api
+    resp = requests.get(query_string)
+
+
+    data_geo_location=json.loads(resp.content)
+    if data_geo_location['found'] != 0:
+        latitude.append(data_geo_location['results'][0]['LATITUDE'])
+        longitude.append(data_geo_location['results'][0]['LONGITUDE'])
+        blk_no.append(data_geo_location['results'][0]['BLK_NO'])
+        road_name.append(data_geo_location['results'][0]['ROAD_NAME'])
+        postal_code.append(data_geo_location['results'][0]['POSTAL'])
+        address.append(query_address)
+        print (str(query_address) + " ,Lat: " + data_geo_location['results'][0]['LATITUDE'] + " Long: " + data_geo_location['results'][0]['LONGITUDE'])
+    else:
+        print ("No Results")
+
+df_coordinates = pd.DataFrame({
+    'latitude': latitude,
+    'longitude': longitude,
+    'blk_no': blk_no,
+    'road_name': road_name,
+    'postal_code': postal_code,
+    'address': address
+})
+
+print(len(df_coordinates))
