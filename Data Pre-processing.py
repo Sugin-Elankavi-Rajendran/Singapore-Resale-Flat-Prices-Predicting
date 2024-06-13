@@ -260,3 +260,4 @@ df_new.dropna(inplace=True)
 
 print(df_new)
 
+df_new.to_csv('combined.csv', index = False)
