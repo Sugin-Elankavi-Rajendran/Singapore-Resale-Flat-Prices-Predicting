@@ -147,7 +147,7 @@ mrt_long = []
 
 for i in range(0, len(list_of_mrt)):
     query_address = list_of_mrt[i]
-    query_string = api
+    query_string = 'https://www.onemap.gov.sg/api/common/elastic/search?searchVal='+str(query_address)+'&returnGeom=Y&getAddrDetails=Y'
     resp = requests.get(query_string)
 
     data_mrt=json.loads(resp.content)
@@ -211,55 +211,55 @@ df_coordinates = pd.DataFrame({
     'address': address
 })
 
-#print(len(df_coordinates))
+print(len(df_coordinates))
 
-# list_of_lat = df_coordinates['latitude']
-# list_of_long = df_coordinates['longitude']
-# mrt_lat = mrt_location['latitude']
-# mrt_long = mrt_location['longitude']
+list_of_lat = df_coordinates['latitude']
+list_of_long = df_coordinates['longitude']
+mrt_lat = mrt_location['latitude']
+mrt_long = mrt_location['longitude']
 
-# list_of_coordinates = []
-# list_of_mrt_coordinates = []
+list_of_coordinates = []
+list_of_mrt_coordinates = []
 
-# for lat, long in zip(list_of_lat, list_of_long):
-#     list_of_coordinates.append((lat,long))
-# for lat, long in zip(mrt_lat, mrt_long):
-#     list_of_mrt_coordinates.append((lat, long))
+for lat, long in zip(list_of_lat, list_of_long):
+    list_of_coordinates.append((lat,long))
+for lat, long in zip(mrt_lat, mrt_long):
+    list_of_mrt_coordinates.append((lat, long))
 
-# list_of_dist_mrt = []
-# min_dist_mrt = []
+list_of_dist_mrt = []
+min_dist_mrt = []
 
-# for origin in list_of_coordinates:
-#     for destination in range(0, len(list_of_mrt_coordinates)):
-#         list_of_dist_mrt.append(geodesic(origin,list_of_mrt_coordinates[destination]).meters)
-#     shortest = (min(list_of_dist_mrt))
-#     min_dist_mrt.append(shortest)
-#     list_of_dist_mrt.clear()
+for origin in list_of_coordinates:
+    for destination in range(0, len(list_of_mrt_coordinates)):
+        list_of_dist_mrt.append(geodesic(origin,list_of_mrt_coordinates[destination]).meters)
+    shortest = (min(list_of_dist_mrt))
+    min_dist_mrt.append(shortest)
+    list_of_dist_mrt.clear()
 
-# cbd_dist = []
+cbd_dist = []
 
-# for origin in list_of_coordinates:
-#     cbd_dist.append(geodesic(origin,(1.2830, 103.8513)).meters)
+for origin in list_of_coordinates:
+    cbd_dist.append(geodesic(origin,(1.2830, 103.8513)).meters)
 
-# df_coordinates['cbd_dist'] = cbd_dist
-# df_coordinates['min_dist_mrt'] = min_dist_mrt
+df_coordinates['cbd_dist'] = cbd_dist
+df_coordinates['min_dist_mrt'] = min_dist_mrt
 
-# print(df_coordinates)
+print(df_coordinates)
 
-# df_coordinates.to_csv('df_coordinates.csv',index=False)
+df_coordinates.to_csv('df_coordinates.csv',index=False)
 
-# df_coordinates = pd.read_csv('df_coordinates.csv')
+df_coordinates = pd.read_csv('df_coordinates.csv')
 
-# df_new = df_coordinates.merge(df, on="address", how='outer')
-# print(df_new)
+df_new = df_coordinates.merge(df, on="address", how='outer')
+print(df_new)
 
-# df_new['resale_price'] = df_new['resale_price'].astype('float')
-# df_new['floor_area_sqm'] = df_new['floor_area_sqm'].astype('float')
-# df_new['lease_commence_date'] = df_new['lease_commence_date'].astype('int64')
-# df_new['lease_remain_years'] = 99 - (2023 - df_new['lease_commence_date'])
+df_new['resale_price'] = df_new['resale_price'].astype('float')
+df_new['floor_area_sqm'] = df_new['floor_area_sqm'].astype('float')
+df_new['lease_commence_date'] = df_new['lease_commence_date'].astype('int64')
+df_new['lease_remain_years'] = 99 - (2023 - df_new['lease_commence_date'])
 
-# df_new.dropna(inplace=True)
+df_new.dropna(inplace=True)
 
-# print(df_new)
+print(df_new)
 
-# df_new.to_csv('combined.csv', index = False)
+df_new.to_csv('combined.csv', index = False)
