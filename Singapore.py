@@ -34,6 +34,16 @@ with st.sidebar:
 
 if selected == "Predictions":
     st.markdown("# :blue[Predicting Results based on Trained Models]")
-    st.markdown("### :orange[Predicting Resale Price (Regression Task) (Accuracy: 87%)]")
+    st.markdown("### :orange[Predicting Resale Price (Regression Task) (Accuracy: 84%)]")
 
-    
+    try:
+        with st.form("form1"):
+
+            # -----New Data inputs from the user for predicting the resale price-----
+            street_name = st.text_input("Street Name")
+            block = st.text_input("Block Number")
+            floor_area_sqm = st.number_input('Floor Area (Per Square Meter)', min_value=1.0, max_value=500.0)
+            lease_commence_date = st.number_input('Lease Commence Date')
+            storey_range = st.text_input("Storey Range (Format: 'Value1' TO 'Value2')")
+            
+            
