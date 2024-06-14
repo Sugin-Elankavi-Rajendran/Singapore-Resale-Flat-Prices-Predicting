@@ -160,3 +160,22 @@ if selected == "Predictions":
     
     except Exception as e:
         st.write("Enter the above values to get the predicted resale price of the flat.")
+
+# Footer with creator information
+# Inject custom CSS for styling
+st.markdown(
+    """
+    <style>
+    .custom-text {
+        color: #333;  /* Dark color for the text */
+        font-weight: bold;
+        font-family: 'Arial', sans-serif;  /* Choose a stylish font */
+        font-size: 20px;  /* Adjust the font size */
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
+# Write the HTML with the custom CSS class
+st.write(f'<p class="custom-text">App Created by Sugin Elankavi Rajendran</p>', unsafe_allow_html=True)
