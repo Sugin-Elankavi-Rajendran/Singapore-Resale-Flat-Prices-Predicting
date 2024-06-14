@@ -20,3 +20,12 @@ print(df.dtypes)
 
 print(df.isnull().sum())
 
+def get_median(x):
+    split_list = x.split(' TO ')
+    float_list = [float(i) for i in split_list]
+    median = statistics.median(float_list)
+    return median
+
+df['storey_median'] = df['storey_range'].apply(lambda x: get_median(x))
+print(df)
+
