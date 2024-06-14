@@ -77,3 +77,10 @@ if selected == "Predictions":
                 list_of_mrt_coordinates = []
                 for lat, long in zip(mrt_lat, mrt_long):
                     list_of_mrt_coordinates.append((lat, long))
+                
+                list_of_dist_mrt = []
+                for destination in range(0, len(list_of_mrt_coordinates)):
+                    list_of_dist_mrt.append(geodesic(origin, list_of_mrt_coordinates[destination]).meters)
+                shortest = (min(list_of_dist_mrt))
+                min_dist_mrt = shortest
+                list_of_dist_mrt.clear()
