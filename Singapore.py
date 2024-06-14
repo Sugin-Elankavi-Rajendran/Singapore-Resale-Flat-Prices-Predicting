@@ -22,3 +22,13 @@ st.set_page_config(
     page_icon="🏨",
     layout="wide"
 )
+
+with st.sidebar:
+    selected = option_menu("Main Menu", ["About Project", "Predictions"],
+                           icons=["house", "gear"],
+                           styles={"nav-link": {"font": "sans serif", "font-size": "20px", "text-align": "centre"},
+                                   "nav-link-selected": {"font": "sans serif", "background-color": "#0072b1"},
+                                   "icon": {"font-size": "20px"}
+                                   }
+                           )
+
