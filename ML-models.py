@@ -83,3 +83,29 @@ print(test_dataframe)
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.1, random_state=42)
 
 
+dtr = DecisionTreeRegressor()
+
+param_grid = {
+    'max_depth': [2, 5, 10, 15, 20, 22],
+    'min_samples_split': [2, 3, 4, 5],
+    'min_samples_leaf': [2, 3, 4, 5, 6, 7, 8, 9, 10, 15, 20],
+    'max_features': ['auto', 'sqrt', 'log2']
+}
+
+grid_search = GridSearchCV(estimator=dtr, param_grid=param_grid, cv=5)
+grid_search.fit(X_train, y_train)
+print("Best hyperparameters:", grid_search.best_params_)
+best_model = grid_search.best_estimator_
+y_pred = best_model.predict(X_test)
+
+mse = mean_squared_error(y_test, y_pred)
+mae = mean_absolute_error(y_test, y_pred)
+rmse = np.sqrt(mse)
+r2 = r2_score(y_test, y_pred)
+print(" ")
+print('Mean squared error:', mse)
+print('Mean Absolute Error', mae)
+print('Root Mean squared error:', rmse)
+print(" ")
+print('R-squared:', r2)
+
