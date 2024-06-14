@@ -71,3 +71,15 @@ sns.heatmap(
     annot=True
 )
 
+X=df1[['cbd_dist','min_dist_mrt','floor_area_sqm','lease_remain_years','storey_median']]
+y=df1['resale_price']
+
+scaler = StandardScaler()
+X = scaler.fit_transform(X)
+
+test_dataframe = pd.DataFrame(X)
+print(test_dataframe)
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.1, random_state=42)
+
+
