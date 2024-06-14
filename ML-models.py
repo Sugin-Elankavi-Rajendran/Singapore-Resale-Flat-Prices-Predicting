@@ -60,3 +60,14 @@ plt.show()
 
 print(df1.dtypes)
 
+corrMatrix = df1.corr()
+plt.figure(figsize=(15, 10))
+plt.title("Correlation Heatmap")
+sns.heatmap(
+    corrMatrix, 
+    xticklabels=corrMatrix.columns,
+    yticklabels=corrMatrix.columns,
+    cmap='RdBu', 
+    annot=True
+)
+
