@@ -6,3 +6,4 @@ seaborn
 matplotlib
 geopy
 requests
+streamlit-option-menu
