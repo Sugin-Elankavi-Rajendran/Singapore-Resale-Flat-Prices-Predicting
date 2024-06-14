@@ -7,38 +7,47 @@ from geopy.distance import geodesic
 import statistics
 import numpy as np
 import pickle
-from sklearn.model_selection import train_test_split
-from sklearn.tree import DecisionTreeRegressor
-from sklearn.preprocessing import StandardScaler
-from sklearn.metrics import mean_squared_error
-from sklearn.model_selection import GridSearchCV
 
-
+# Load data
 data = pd.read_csv('mrt.csv')
 mrt_location = pd.DataFrame(data)
 
+# Streamlit page configuration
 st.set_page_config(
     page_title="Singapore Resale Flat Prices Prediction",
     page_icon="🏨",
     layout="wide"
 )
 
+# Sidebar menu
 with st.sidebar:
-    selected = option_menu("Main Menu", ["Predictions"],
-                           icons=["house", "gear"],
-                           styles={"nav-link": {"font": "sans serif", "font-size": "20px", "text-align": "centre"},
-                                   "nav-link-selected": {"font": "sans serif", "background-color": "#0072b1"},
-                                   "icon": {"font-size": "20px"}
-                                   }
-                           )
+    selected = option_menu(
+        "Main Menu",
+        ["Predictions"],
+        icons=["house", "gear"],
+        styles={
+            "nav-link": {
+                "font": "sans serif",
+                "font-size": "20px",
+                "text-align": "centre"
+            },
+            "nav-link-selected": {
+                "font": "sans serif",
+                "background-color": "#0072b1"
+            },
+            "icon": {
+                "font-size": "20px"
+            }
+        }
+    )
 
+# Prediction page
 if selected == "Predictions":
     st.markdown("# :blue[Predicting Results based on Trained Models]")
     st.markdown("### :orange[Predicting Resale Price (Regression Task) (Accuracy: 84%)]")
 
     try:
         with st.form("form1"):
-
             street_name = st.text_input("Street Name")
             block = st.text_input("Block Number")
             floor_area_sqm = st.number_input('Floor Area (Per Square Meter)', min_value=1.0, max_value=500.0)
@@ -47,50 +56,42 @@ if selected == "Predictions":
             
             submit_button = st.form_submit_button(label="PREDICT RESALE PRICE")
 
-            if submit_button is not None:
-                with open(r"model.pkl", 'rb') as file:
+            if submit_button:
+                with open("model.pkl", 'rb') as file:
                     loaded_model = pickle.load(file)
-                with open(r'scaler.pkl', 'rb') as f:
+                with open('scaler.pkl', 'rb') as f:
                     scaler_loaded = pickle.load(f)
                 
                 lease_remain_years = 99 - (2024 - lease_commence_date)
 
-                split_list = storey_range.split(' TO ')
-                float_list = [float(i) for i in split_list]
-                storey_median = statistics.median(float_list)
+                storey_values = [float(value) for value in storey_range.split(' TO ')]
+                storey_median = statistics.median(storey_values)
 
-                address = block + " " + street_name
-                query_address = address
-                query_string = 'https://www.onemap.gov.sg/api/common/elastic/search?searchVal='+str(query_address)+'&returnGeom=Y&getAddrDetails=Y'
-                resp = requests.get(query_string)
+                address = f"{block} {street_name}"
+                query_string = f'https://www.onemap.gov.sg/api/common/elastic/search?searchVal={address}&returnGeom=Y&getAddrDetails=Y'
+                response = requests.get(query_string)
 
                 origin = []
-                data_geo_location = json.loads(resp.content)
-                if data_geo_location['found'] != 0:
+                data_geo_location = json.loads(response.content)
+                if data_geo_location['found']:
                     latitude = data_geo_location['results'][0]['LATITUDE']
                     longitude = data_geo_location['results'][0]['LONGITUDE']
                     origin.append((latitude, longitude))
                 
-                mrt_lat = mrt_location['latitude']
-                mrt_long = mrt_location['longitude']
-                list_of_mrt_coordinates = []
-                for lat, long in zip(mrt_lat, mrt_long):
-                    list_of_mrt_coordinates.append((lat, long))
+                mrt_coordinates = list(zip(mrt_location['latitude'], mrt_location['longitude']))
                 
-                list_of_dist_mrt = []
-                for destination in range(0, len(list_of_mrt_coordinates)):
-                    list_of_dist_mrt.append(geodesic(origin, list_of_mrt_coordinates[destination]).meters)
-                shortest = (min(list_of_dist_mrt))
-                min_dist_mrt = shortest
-                list_of_dist_mrt.clear()
+                distances_to_mrt = [geodesic(origin, dest).meters for dest in mrt_coordinates]
+                min_dist_mrt = min(distances_to_mrt)
 
                 cbd_dist = geodesic(origin, (1.2830, 103.8513)).meters
 
-                new_sample = np.array(
-                    [[cbd_dist, min_dist_mrt, np.log(floor_area_sqm), lease_remain_years, np.log(storey_median)]])
-                new_sample = scaler_loaded.transform(new_sample[:, :5])
-                new_pred = loaded_model.predict(new_sample)[0]
-                st.write('## :green[Predicted resale price:] ', np.exp(new_pred))
+                new_sample = np.array([
+                    [cbd_dist, min_dist_mrt, np.log(floor_area_sqm), lease_remain_years, np.log(storey_median)]
+                ])
+                new_sample_scaled = scaler_loaded.transform(new_sample)
+                predicted_price = loaded_model.predict(new_sample_scaled)[0]
+
+                st.write('## :green[Predicted resale price:] ', np.exp(predicted_price))
     
     except Exception as e:
-        st.write("Enter the above values to get the predicted resale price of the flat")
+        st.write("Enter the above values to get the predicted resale price of the flat.")
