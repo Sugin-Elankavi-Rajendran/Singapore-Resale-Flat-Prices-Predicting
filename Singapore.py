@@ -84,3 +84,5 @@ if selected == "Predictions":
                 shortest = (min(list_of_dist_mrt))
                 min_dist_mrt = shortest
                 list_of_dist_mrt.clear()
+
+                cbd_dist = geodesic(origin, (1.2830, 103.8513)).meters
