@@ -62,6 +62,12 @@ if selected == "Predictions":
 
                 address = block + " " + street_name
                 query_address = address
-                query_string = 'https://developers.onemap.sg/commonapi/search?searchVal=' + str(
-                    query_address) + '&returnGeom=Y&getAddrDetails=Y'
+                query_string = 'https://www.onemap.gov.sg/api/common/elastic/search?searchVal='+str(query_address)+'&returnGeom=Y&getAddrDetails=Y'
                 resp = requests.get(query_string)
+
+                origin = []
+                data_geo_location = json.loads(resp.content)
+                if data_geo_location['found'] != 0:
+                    latitude = data_geo_location['results'][0]['LATITUDE']
+                    longitude = data_geo_location['results'][0]['LONGITUDE']
+                    origin.append((latitude, longitude))
