@@ -19,7 +19,7 @@ st.set_page_config(
     layout="wide"
 )
 
-# Custom CSS for background and styles
+# Custom CSS for background, styles, and dark text input titles
 st.markdown(
     """
     <style>
@@ -36,7 +36,7 @@ st.markdown(
     }
     /* Style the main container to make sure content is visible above the background */
     .stApp {
-        background-color: rgba(255, 255, 255, 0.6); /* Optional: adds a slight white background to text for better readability */
+        background-color: rgba(255, 255, 255, 0.8); /* Adds a slight white background to text for better readability */
         border-radius: 15px;
         padding: 20px;
         margin: auto;
@@ -48,6 +48,7 @@ st.markdown(
         color: #009999;
         font-family: 'Arial', sans-serif;
         text-align: center;
+        margin-bottom: 20px;
     }
     .stButton>button {
         background-color: #009999;
@@ -59,6 +60,19 @@ st.markdown(
     .stTextInput input {
         font-size: 18px;
         padding: 10px;
+        border: 1px solid #009999;
+        border-radius: 5px;
+    }
+    .stNumberInput input {
+        font-size: 18px;
+        padding: 10px;
+        border: 1px solid #009999;
+        border-radius: 5px;
+    }
+    .stTextInput>label, .stNumberInput>label {
+        color: #000000;
+        font-size: 20px;
+        font-weight: bold;
     }
     .stSelectbox {
         font-size: 18px;
@@ -67,7 +81,8 @@ st.markdown(
         font-size: 16px;
     }
     </style>
-    """, unsafe_allow_html=True)
+    """, unsafe_allow_html=True
+)
 
 # Sidebar menu
 with st.sidebar:
@@ -94,7 +109,7 @@ with st.sidebar:
 # Prediction page
 if selected == "Predictions":
     st.markdown("# :blue[Predicting Results based on Trained Models]")
-    st.markdown("### :orange[Predicting Resale Price (Regression Task) (Accuracy: 84%)]")
+    st.markdown("### :orange[Predicting Resale Price (Accuracy: 84%)]")
 
     try:
         with st.form("form1"):
