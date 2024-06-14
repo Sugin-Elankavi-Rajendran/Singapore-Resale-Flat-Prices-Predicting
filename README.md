@@ -3,6 +3,8 @@ Singapore Resale Flat Prices Prediction
 
 This project provides tools to predict the resale prices of Singapore flats using a machine learning model. It involves data preprocessing, feature engineering, model training, and deployment through a Streamlit web application.
 
+Web: https://singapore-resale-flat-prices-predicting-bnht.onrender.com/
+
 Table of Contents
 -----------------
 
