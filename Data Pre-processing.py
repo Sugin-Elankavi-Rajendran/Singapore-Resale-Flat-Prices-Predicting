@@ -2,7 +2,6 @@ import glob
 import pandas as pd
 import json
 import requests
-from openapi import api
 from geopy.distance import geodesic
 
 df = pd.concat([pd.read_csv(f) for f in glob.glob("./data/*.csv")], ignore_index=True)
