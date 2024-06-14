@@ -60,4 +60,8 @@ if selected == "Predictions":
                 float_list = [float(i) for i in split_list]
                 storey_median = statistics.median(float_list)
 
-                
+                address = block + " " + street_name
+                query_address = address
+                query_string = 'https://developers.onemap.sg/commonapi/search?searchVal=' + str(
+                    query_address) + '&returnGeom=Y&getAddrDetails=Y'
+                resp = requests.get(query_string)
