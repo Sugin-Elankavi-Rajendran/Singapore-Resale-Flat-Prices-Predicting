@@ -17,3 +17,8 @@ from sklearn.model_selection import GridSearchCV
 data = pd.read_csv('mrt.csv')
 mrt_location = pd.DataFrame(data)
 
+st.set_page_config(
+    page_title="Singapore Resale Flat Prices Prediction",
+    page_icon="🏨",
+    layout="wide"
+)
