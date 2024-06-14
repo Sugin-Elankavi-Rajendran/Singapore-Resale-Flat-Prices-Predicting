@@ -46,4 +46,10 @@ if selected == "Predictions":
             lease_commence_date = st.number_input('Lease Commence Date')
             storey_range = st.text_input("Storey Range (Format: 'Value1' TO 'Value2')")
             
-            
+            submit_button = st.form_submit_button(label="PREDICT RESALE PRICE")
+
+            if submit_button is not None:
+                with open(r"model.pkl", 'rb') as file:
+                    loaded_model = pickle.load(file)
+                with open(r'scaler.pkl', 'rb') as f:
+                    scaler_loaded = pickle.load(f)
