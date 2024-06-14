@@ -5,16 +5,16 @@ import requests
 from geopy.distance import geodesic
 
 df = pd.concat([pd.read_csv(f) for f in glob.glob("./data/*.csv")], ignore_index=True)
-#print(df.head())
+print(df.head())
 
-#print(df.shape)
+print(df.shape)
 
-#print(df.isnull().sum())
+print(df.isnull().sum())
 
 df = df.dropna()
-#print(df.isnull().sum())
+print(df.isnull().sum())
 
-#print(df['town'].unique())
+print(df['town'].unique())
 
 list_of_mrt = [
     'Jurong East MRT Station',
@@ -155,12 +155,12 @@ for i in range(0, len(list_of_mrt)):
         mrt_lat.append(data_mrt["results"][0]["LATITUDE"])
         mrt_long.append(data_mrt["results"][0]["LONGITUDE"])
 
-        #print (str(query_address)+",Lat: "+data_mrt['results'][0]['LATITUDE'] +" Long: "+data_mrt['results'][0]['LONGITUDE'])
+        print (str(query_address)+",Lat: "+data_mrt['results'][0]['LATITUDE'] +" Long: "+data_mrt['results'][0]['LONGITUDE'])
 
     else:
         mrt_lat.append('NotFound')
         mrt_long.append('NotFound')
-        #print ("No Results")
+        print ("No Results")
 
 mrt_location = pd.DataFrame({
     'MRT': list_of_mrt,
@@ -170,7 +170,7 @@ mrt_location = pd.DataFrame({
 
 
 df['address'] = df['block'] + " " + df['street_name']
-#print(df)
+print(df)
 
 address_list = df['address'].unique()
 
