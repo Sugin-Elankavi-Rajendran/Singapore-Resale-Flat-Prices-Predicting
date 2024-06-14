@@ -18,3 +18,5 @@ print(df)
 
 print(df.dtypes)
 
+print(df.isnull().sum())
+
