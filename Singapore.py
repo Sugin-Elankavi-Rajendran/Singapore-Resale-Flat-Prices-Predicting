@@ -71,3 +71,9 @@ if selected == "Predictions":
                     latitude = data_geo_location['results'][0]['LATITUDE']
                     longitude = data_geo_location['results'][0]['LONGITUDE']
                     origin.append((latitude, longitude))
+                
+                mrt_lat = mrt_location['latitude']
+                mrt_long = mrt_location['longitude']
+                list_of_mrt_coordinates = []
+                for lat, long in zip(mrt_lat, mrt_long):
+                    list_of_mrt_coordinates.append((lat, long))
