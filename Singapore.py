@@ -92,3 +92,6 @@ if selected == "Predictions":
                 new_sample = scaler_loaded.transform(new_sample[:, :5])
                 new_pred = loaded_model.predict(new_sample)[0]
                 st.write('## :green[Predicted resale price:] ', np.exp(new_pred))
+    
+    except Exception as e:
+        st.write("Enter the above values to get the predicted resale price of the flat")
