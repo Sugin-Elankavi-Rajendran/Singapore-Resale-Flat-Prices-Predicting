@@ -19,6 +19,56 @@ st.set_page_config(
     layout="wide"
 )
 
+# Custom CSS for background and styles
+st.markdown(
+    """
+    <style>
+    /* Apply styles to the body to set the background image */
+    body {
+        background-image: url('https://e0.pxfuel.com/wallpapers/963/481/desktop-wallpaper-sights-and-scenes-of-beautiful-singapore-2.jpg');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-attachment: fixed;
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+    }
+    /* Style the main container to make sure content is visible above the background */
+    .stApp {
+        background-color: rgba(255, 255, 255, 0.6); /* Optional: adds a slight white background to text for better readability */
+        border-radius: 15px;
+        padding: 20px;
+        margin: auto;
+        width: 80%;
+        max-width: 1200px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .title {
+        color: #009999;
+        font-family: 'Arial', sans-serif;
+        text-align: center;
+    }
+    .stButton>button {
+        background-color: #009999;
+        color: white;
+        font-size: 18px;
+        border-radius: 10px;
+        padding: 10px 20px;
+    }
+    .stTextInput input {
+        font-size: 18px;
+        padding: 10px;
+    }
+    .stSelectbox {
+        font-size: 18px;
+    }
+    .form-label {
+        font-size: 16px;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
 # Sidebar menu
 with st.sidebar:
     selected = option_menu(
