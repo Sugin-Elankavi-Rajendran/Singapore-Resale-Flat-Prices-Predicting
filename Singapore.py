@@ -86,3 +86,9 @@ if selected == "Predictions":
                 list_of_dist_mrt.clear()
 
                 cbd_dist = geodesic(origin, (1.2830, 103.8513)).meters
+
+                new_sample = np.array(
+                    [[cbd_dist, min_dist_mrt, np.log(floor_area_sqm), lease_remain_years, np.log(storey_median)]])
+                new_sample = scaler_loaded.transform(new_sample[:, :5])
+                new_pred = loaded_model.predict(new_sample)[0]
+                st.write('## :green[Predicted resale price:] ', np.exp(new_pred))
