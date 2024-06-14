@@ -12,3 +12,8 @@ from sklearn.tree import DecisionTreeRegressor
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import mean_squared_error
 from sklearn.model_selection import GridSearchCV
+
+
+data = pd.read_csv('mrt.csv')
+mrt_location = pd.DataFrame(data)
+
