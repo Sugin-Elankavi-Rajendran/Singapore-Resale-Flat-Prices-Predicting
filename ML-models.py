@@ -29,3 +29,9 @@ def get_median(x):
 df['storey_median'] = df['storey_range'].apply(lambda x: get_median(x))
 print(df)
 
+scope_df = df[['cbd_dist','min_dist_mrt','floor_area_sqm','lease_remain_years','storey_median','resale_price']]
+print(scope_df)
+
+scope_df = scope_df.drop_duplicates()
+print(scope_df)
+
