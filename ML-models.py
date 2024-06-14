@@ -114,3 +114,8 @@ new_sample = scaler.transform(new_sample[:, :5])
 new_pred = best_model.predict(new_sample)[0]
 print(np.exp(new_pred))
 
+import pickle
+with open('model.pkl', 'wb') as file:
+    pickle.dump(best_model, file)
+with open('scaler.pkl', 'wb') as f:
+    pickle.dump(scaler, f)
