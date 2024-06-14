@@ -70,6 +70,7 @@ sns.heatmap(
     cmap='RdBu', 
     annot=True
 )
+plt.show()
 
 X=df1[['cbd_dist','min_dist_mrt','floor_area_sqm','lease_remain_years','storey_median']]
 y=df1['resale_price']
