@@ -109,3 +109,8 @@ print('Root Mean squared error:', rmse)
 print(" ")
 print('R-squared:', r2)
 
+new_sample = np.array([[8740, 999, np.log(44), 55, np.log(11)]])
+new_sample = scaler.transform(new_sample[:, :5])
+new_pred = best_model.predict(new_sample)[0]
+print(np.exp(new_pred))
+
