@@ -55,3 +55,9 @@ if selected == "Predictions":
                     scaler_loaded = pickle.load(f)
                 
                 lease_remain_years = 99 - (2024 - lease_commence_date)
+
+                split_list = storey_range.split(' TO ')
+                float_list = [float(i) for i in split_list]
+                storey_median = statistics.median(float_list)
+
+                
