@@ -53,3 +53,5 @@ if selected == "Predictions":
                     loaded_model = pickle.load(file)
                 with open(r'scaler.pkl', 'rb') as f:
                     scaler_loaded = pickle.load(f)
+                
+                lease_remain_years = 99 - (2024 - lease_commence_date)
