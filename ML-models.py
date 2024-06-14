@@ -16,3 +16,5 @@ from sklearn.model_selection import GridSearchCV
 df = pd.read_csv('combined.csv')
 print(df)
 
+print(df.dtypes)
+
