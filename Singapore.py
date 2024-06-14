@@ -24,7 +24,7 @@ st.set_page_config(
 )
 
 with st.sidebar:
-    selected = option_menu("Main Menu", ["About Project", "Predictions"],
+    selected = option_menu("Main Menu", ["Predictions"],
                            icons=["house", "gear"],
                            styles={"nav-link": {"font": "sans serif", "font-size": "20px", "text-align": "centre"},
                                    "nav-link-selected": {"font": "sans serif", "background-color": "#0072b1"},
@@ -32,3 +32,8 @@ with st.sidebar:
                                    }
                            )
 
+if selected == "Predictions":
+    st.markdown("# :blue[Predicting Results based on Trained Models]")
+    st.markdown("### :orange[Predicting Resale Price (Regression Task) (Accuracy: 87%)]")
+
+    
