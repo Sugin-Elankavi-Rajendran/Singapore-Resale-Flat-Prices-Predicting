@@ -159,7 +159,7 @@ print(df_new)
 df_new['resale_price'] = df_new['resale_price'].astype('float')
 df_new['floor_area_sqm'] = df_new['floor_area_sqm'].astype('float')
 df_new['lease_commence_date'] = df_new['lease_commence_date'].astype('int64')
-df_new['lease_remain_years'] = 99 - (2023 - df_new['lease_commence_date'])
+df_new['lease_remain_years'] = 99 - (2024 - df_new['lease_commence_date'])
 
 # Drop any remaining missing values
 df_new.dropna(inplace=True)
